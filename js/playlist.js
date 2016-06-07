@@ -1,17 +1,19 @@
 var domReady = function(callback) {
     document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
 };
-var responseArray=[];
+var responseArray=[], selectedArray=[];
 var httpGetRequest, httpPostRequest;
-domReady(doAlbumScroll());
 document.getElementById("clear-button").addEventListener("click",doClearPlaylist);
 document.getElementById("submit-button").addEventListener("click",doSubmitPlaylist);
+// Submit GET request to API when page is loaded
+domReady(doAlbumScroll());
 function doAlbumScroll() {
   httpGetRequest = new XMLHttpRequest();
   httpGetRequest.onreadystatechange = getAlbums;
   httpGetRequest.open('GET', 'https://lit-fortress-6467.herokuapp.com/object');
   httpGetRequest.send();
 }
+// Display the albums returned from API call
 function getAlbums() {
   if (httpGetRequest.readyState === 4 && httpGetRequest.status < 400) {
     var responseObj = JSON.parse(httpGetRequest.responseText);
@@ -21,48 +23,46 @@ function getAlbums() {
       el += `<img class="scrolling-image" id="cover-${responseArray[i].id}" src="images/${responseArray[i].cover_art}">`
     }
     document.getElementById("cover-scroll").innerHTML = el;
-
     for (var i=0; i<responseArray.length; i++) {
       var imageId = `cover-${responseArray[i].id}`
-      console.log(imageId);
       document.getElementById(imageId).addEventListener("click",doProcessSelection)
     }
   }
 }
-
-function doProcessSelection(e) {
 // Add selected album to bin
-  console.log("current target: " + e.currentTarget);
+function doProcessSelection(e) {
   var el = document.getElementById("cover-list").innerHTML;
-  console.log("el: "+el)
   var albumId = e.currentTarget.id;
   albumId = albumId.slice(albumId.indexOf("-")+1);
-  console.log("album id: "+albumId+", type: "+typeof albumId)
-  console.log("array id: "+responseArray[0].id+", type: "+typeof responseArray[0].id);
-  for (var i = 0; i < responseArray.length; i++) {
-    if (responseArray[i].id == albumId) {
-      el += `<li>${responseArray[i].title}</li>`
+  if (albumId == selectedArray.filter(function(item) {
+    return item === albumId
+  })) {
+    alert("That album has already been selected")
+  } else {
+    for (var i = 0; i < responseArray.length; i++) {
+      if (responseArray[i].id == albumId) {
+        el += `<li>${responseArray[i].title}</li>`
+        selectedArray.push(albumId);
+        document.getElementById("cover-list").innerHTML = el;
+      }
     }
   }
-  document.getElementById("cover-list").innerHTML = el;
 }
+// Clear all the albums in the bin and the selected array
 function doClearPlaylist() {
-// Clear all the albums in the bin
   document.getElementById("cover-list").innerHTML = "";
+  selectedArray = [];
 }
-
-function doSubmitPlaylist() {
 // Submit Post request to save Playlist
-  console.log("Submit Playlist");
+function doSubmitPlaylist() {
   httpPostRequest = new XMLHttpRequest();
   httpPostRequest.onreadystatechange = getPostResponse;
   httpPostRequest.open('POST', 'https://lit-fortress-6467.herokuapp.com/post');
   httpPostRequest.send();
 }
+// Display response from Post request & clear selected albums
 function getPostResponse() {
-  console.log(httpPostRequest.readyState, httpPostRequest.status);
   if (httpPostRequest.readyState === 4 && httpPostRequest.status < 400) {
-    console.log(httpPostRequest.responseText);
     doClearPlaylist()
     alert(httpPostRequest.responseText)
   }

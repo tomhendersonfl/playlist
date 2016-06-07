@@ -26,9 +26,14 @@ function getResponse() {
     }
 // Add three images based on random numbers
     var el=document.getElementById("random-covers").innerHTML;
-    el += `<img id="randomImage1" src="images/${responseArray[random1].cover_art}">`
-    el += `<img id="randomImage2" src="images/${responseArray[random2].cover_art}">`
-    el += `<img id="randomImage3" src="images/${responseArray[random3].cover_art}">`
+    // el += `<ul type="none">`
+    // el += `<li><img id="randomImage1" src="images/${responseArray[random1].cover_art}"></li>`
+    // el += `<li><img id="randomImage2" src="images/${responseArray[random2].cover_art}"></li>`
+    // el += `<li><img id="randomImage3" src="images/${responseArray[random3].cover_art}"></li>`
+    // el += '</ul>'
+    el += `<img class="randomImage" src="images/${responseArray[random1].cover_art}">`
+    el += `<img class="randomImage" src="images/${responseArray[random2].cover_art}">`
+    el += `<img class="randomImage" src="images/${responseArray[random3].cover_art}">`
     document.getElementById("random-covers").innerHTML = el;
   }
 }

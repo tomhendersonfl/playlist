@@ -10,7 +10,7 @@ font-family: Boom, Arial, sans-serif;
   font-style: normal;
 }
 .gray-bar {
-  width: 90vw;
+  width: 90%;
   height: 30px;
   border: 2px solid #9B9B8D;
   background-color: #9b9b8d;
@@ -18,11 +18,14 @@ font-family: Boom, Arial, sans-serif;
   padding-top: 10px;
   color: white;
 }
+h1 {
+  margin: auto;
+}
 #choose-tracks {
-  height: 40vw;
-  width: 49%;
+  height: 30vw;
+  width: 45%;
   margin: 0px;
-  padding-top: 150px;
+  padding-top: 140px;
   background-color: white;
   color: #450060;
   display: inline-block;
@@ -31,49 +34,37 @@ font-family: Boom, Arial, sans-serif;
   position: relative;
 }
 #random-covers {
-  height: 60vw;
-  width: 45%;
-  display: inline-block;
+  height: 50vw;
+  width: 47%;
+  display: inline-flex;
+  flex-direction: column;
   position: relative;
   z-index: -1;
 }
 #railroad {
   opacity: 0.2;
   width: 100%;
-  height: 60vw;
-}
-#randomImage1 {
+  height: 100%;
   position: absolute;
-  top: 30px;
-  left: 120px;
-  height: 120px;
-  width: 120px;
+  left: 0;
+  top: 0;
+  z-index: -1;
 }
-#randomImage2 {
-  position: absolute;
-  top: 180px;
-  left: 120px;
-  height: 120px;
-  width: 120px;
-}
-#randomImage3 {
-  position: absolute;
-  top: 330px;
-  left: 120px;
+.randomImage {
+  opacity: 1.0;
+  margin: auto;
   height: 120px;
   width: 120px;
 }
 #choose-tracks-button {
   border-radius: 4px;
-  font-family: Arial;
+  font-family: Boom;
   color: #ffffff;
   font-size: 14px;
   background: #000000;
-  padding: 8px 20px 10px 20px;
+  padding: 8px 10px 10px 10px;
   text-decoration: none;
-  /*position: absolute;*/
-  /*top: 50%;
-  transform: translateY(-50%);*/
+  margin: auto;
 }
 header {
   font-size: 14px;
@@ -103,11 +94,10 @@ height: 140px;
 }
 button {
   border-radius: 4px;
-  font-family: Arial;
+  font-family: Boom;
   color: #ffffff;
   font-size: 14px;
   background: #000000;
   padding: 8px 20px 10px 20px;
   text-decoration: none;
-}
 }
