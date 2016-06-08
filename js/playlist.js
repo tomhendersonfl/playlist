@@ -55,10 +55,14 @@ function doClearPlaylist() {
 }
 // Submit Post request to save Playlist
 function doSubmitPlaylist() {
-  httpPostRequest = new XMLHttpRequest();
-  httpPostRequest.onreadystatechange = getPostResponse;
-  httpPostRequest.open('POST', 'https://lit-fortress-6467.herokuapp.com/post');
-  httpPostRequest.send();
+  if (document.getElementById("cover-list").innerHTML === "") {
+    alert("You must select at least one ablum")
+  } else {
+    httpPostRequest = new XMLHttpRequest();
+    httpPostRequest.onreadystatechange = getPostResponse;
+    httpPostRequest.open('POST', 'https://lit-fortress-6467.herokuapp.com/post');
+    httpPostRequest.send();
+  }
 }
 // Display response from Post request & clear selected albums
 function getPostResponse() {
